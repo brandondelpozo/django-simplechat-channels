@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'chat',  # added
     'channels',  # added
+    'users',  # added
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'mychat.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(BASE_DIR.joinpath('templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,3 +137,15 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+# my stuff
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "sesame.backends.ModelBackend",
+]
+
+SESAME_MAX_AGE = 300  # 300 seconds = 5 minutes
+
+LOGIN_REDIRECT_URL = "/admin/"
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
