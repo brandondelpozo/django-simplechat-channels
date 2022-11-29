@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import datetime  # added
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'chat',  # added
     'channels',  # added
     'users',  # added
+    'chat_profile',  # added
 ]
 
 MIDDLEWARE = [
@@ -138,13 +140,14 @@ CHANNEL_LAYERS = {
     },
 }
 
-# my stuff
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "sesame.backends.ModelBackend",
 ]
 
-SESAME_MAX_AGE = 300  # 300 seconds = 5 minutes
+SESAME_MAX_AGE = SESAME_MAX_AGE = datetime.timedelta(days=400)  # after this time the session expired
+
+SESAME_INVALIDATE_ON_PASSWORD_CHANGE = False
 
 LOGIN_REDIRECT_URL = "/admin/"
 
